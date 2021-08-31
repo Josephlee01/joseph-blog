@@ -1,39 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import BlogList from "./BlogList";
 
 const Home = () => {
-  const [name, setName] = useState("Joseph");
+  const [blogs, setBlogs] = useState(null);
 
-  const nameClick = () => {
-    if (name === "Joseph") {
-      setName("Jack");
-    } else {
-      setName("Joseph");
-    }
+  // 함수를 만들어서 BlogList에 Props로 전달
+  const handleDelete = (id) => {
+    // filter는 기존 Array를 변형하지 않고 새로운 Array를 생성함.
+    const newBlogs = blogs.filter((b) => b.id !== id);
+    setBlogs(newBlogs);
   };
 
-  const onClick = (e) => {
-    console.log(e.target);
-  };
-
-  const onClickAgain = (name, e) => {
-    console.log(`Hello ${name}`, e.target);
-  };
+  useEffect(() => {
+    fetch("http://localhost:8000/blogs")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setBlogs(data);
+      });
+  }, []);
 
   return (
     <div className="home">
-      <h2>Home</h2>
-      <p>{name}</p>
-      <button onClick={nameClick}>Change Name</button>
-      <div>
-        <button onClick={onClick}>Click me</button>
-        <button
-          onClick={(e) => {
-            onClickAgain("Joseph", e);
-          }}
-        >
-          Click me Again
-        </button>
-      </div>
+      {blogs && (
+        <div>
+          <BlogList
+            blogs={blogs}
+            title="All Blogs!"
+            handleDelete={handleDelete}
+          />
+          <BlogList
+            blogs={blogs.filter((b) => b.author === "Joseph")}
+            title="Joseph's Blogs!"
+          />
+        </div>
+      )}
     </div>
   );
 };
