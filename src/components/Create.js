@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
@@ -18,24 +19,26 @@ const Create = () => {
     setAuthor(e.target.value);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const blog = { title, body, author };
-
     setIsPending(true);
-
-    fetch("http://localhost:8000/blogs", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(blog),
-    }).then(() => {
-      console.log("new blog added.");
+    try {
+      await axios.post("http://localhost:8000/blogs", blog);
+      console.log("new blod added.");
       setIsPending(false);
-      // history.go(-1)
-      history.push('/')
-    });
-
-    
+    } catch (e) {
+      console.log(e);
+    }
+    history.push("/");
+    // fetch("http://localhost:8000/blogs", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(blog),
+    // }).then(() => {
+    //   console.log("new blog added.");
+    //   // history.go(-1)
+    // });
   };
 
   return (

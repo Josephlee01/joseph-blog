@@ -63,8 +63,23 @@
   margin: 20px 0;
   text-align: justify;
 }
-.blog-details button {
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons .del-btn {
   background: #f1356d;
+  color: #fff;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.buttons .list-btn {
+  background: #686de0;
   color: #fff;
   border: 0;
   padding: 8px;

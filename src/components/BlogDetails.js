@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
 import useFetch from "../useFetch";
 
@@ -10,12 +11,13 @@ const BlogDetails = () => {
     error,
   } = useFetch("http://localhost:8000/blogs/" + id);
 
-  const onDelete = () => {
-    fetch("http://localhost:8000/blogs/" + blog.id, {
-      method: "DELETE",
-    }).then(() => {
-      history.push("/");
-    });
+  const onDelete = async () => {
+    try {
+      await axios.delete("http://localhost:8000/blogs/" + blog.id);
+    } catch (e) {
+      console.log(e);
+    }
+    history.push("/");
   };
 
   return (
@@ -27,7 +29,14 @@ const BlogDetails = () => {
           <h2>{blog.title}</h2>
           <p>Posted by {blog.author}</p>
           <div>{blog.body}</div>
-          <button onClick={onDelete}>delete</button>
+          <div className="buttons">
+            <button className="del-btn" onClick={onDelete}>
+              Delete
+            </button>
+            <button className="list-btn" onClick={() => history.push("/")}>
+              List
+            </button>
+          </div>
         </article>
       )}
     </div>
