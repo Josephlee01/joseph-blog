@@ -14,10 +14,10 @@ const Home = () => {
       {blogs && (
         <div>
           <BlogList blogs={blogs} title="All Blogs!" />
-          <BlogList
+          {/* <BlogList
             blogs={blogs.filter((b) => b.author === "Joseph")}
             title="Joseph's Blogs!"
-          />
+          /> */}
         </div>
       )}
     </div>
