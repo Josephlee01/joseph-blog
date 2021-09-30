@@ -4,6 +4,7 @@
 - [ ] Edit Profile
 - [ ] 내가 쓴 글 보기
 - [ ] SASS
+- [ ] 글 목록에서 요약글 보기
 - [x] fetch -> axios 사용
 - [ ] input 여러개일때 onChange 관리
 - [x] details -> list 버튼
