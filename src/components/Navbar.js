@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({isLoggedIn}) => {
   return (
     <nav className="navbar">
       <h1>The Dojo Blog</h1>
       <div className="links">
-        <Link to="/auth">Sign in / Sign Up</Link>
+        {isLoggedIn ? ("Hello UserName"): (<Link to="/auth">Sign in / Sign Up</Link>)}
         <Link to="/">Home</Link>
         <Link to="/create" style={{ 
           color: 'white', 
