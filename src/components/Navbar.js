@@ -1,20 +1,30 @@
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, useHistory } from "react-router-dom";
 
-const Navbar = ({isLoggedIn}) => {
+const Navbar = ({ isLoggedIn, userInfo }) => {
+  const history = useHistory();
+  const onTitleClick = () => {
+    history.push("/");
+  };
   return (
     <nav className="navbar">
-      <h1>The Dojo Blog</h1>
+        <h1 onClick={onTitleClick}>The Dojo Blog</h1>
+
       <div className="links">
-        {isLoggedIn ? ("Hello UserName"): (<Link to="/auth">Sign in / Sign Up</Link>)}
-        <Link to="/">Home</Link>
-        <Link to="/create" style={{ 
-          color: 'white', 
-          backgroundColor: '#f1356d',
-          borderRadius: '8px' 
-        }}>New Blog</Link>
+      <Link to="/profile">Hello, {userInfo.displayName}</Link>
+        <Link
+          to={isLoggedIn ? "/create" : "/auth"}
+          style={{
+            color: "white",
+            backgroundColor: "#f1356d",
+            borderRadius: "8px",
+          }}
+        >
+          New Blog
+        </Link>
       </div>
     </nav>
   );
-}
- 
+};
+
 export default Navbar;
