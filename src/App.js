@@ -19,17 +19,20 @@ function App() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
+        const currentUser = auth.currentUser
         setUserInfo({
-          displayName: user.displayName,
-          uid: user.uid,
-        });
+            displayName: currentUser.displayName,
+            uid: currentUser.uid,
+          });
       } else {
-        setUserInfo(null);
+        setUserInfo("");
       }
     });
   }, []);
-
+  // setUserInfo()
   const isLoggedIn = Boolean(userInfo);
+
+
   return (
     <Router>
       <div className="App">

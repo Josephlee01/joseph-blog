@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { db } from "../fbase";
@@ -23,6 +22,7 @@ const Create = ({ userInfo }) => {
       title,
       body,
       writer: userInfo.uid,
+      displayName: userInfo.displayName,
       publishedDate: Date.now(),
     };
     await addDoc(collection(db, "blog-list"), posting);
