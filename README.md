@@ -1,3 +1,6 @@
+# ver. 1.5
+- blogList 완성해야함
+
 # ver. 1.4
 - auth 완성
 - displayname 완성
