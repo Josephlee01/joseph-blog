@@ -1,28 +1,33 @@
-import useFetch from "../useFetch";
 import BlogList from "./BlogList";
-import { collection, doc, query, getDoc, orderBy, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  query,
+  orderBy,
+  onSnapshot,
+} from "firebase/firestore";
 import { db } from "../fbase";
 import { useEffect, useState } from "react";
 
 const Home = () => {
-  const [blogs, setBlogs] = useState([])
+  const [blogs, setBlogs] = useState([]);
   useEffect(() => {
-    const q = query(collection(db, "blog-list"), orderBy("publishedDate","desc"));
-  onSnapshot(q, (snapshot) => {
-    const blogArray = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    setBlogs(blogArray);
-  });
-}, [])
-
+    const q = query(
+      collection(db, "blog-list"),
+      orderBy("publishedDate", "desc")
+    );
+    onSnapshot(q, (snapshot) => {
+      const blogArray = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setBlogs(blogArray);
+    });
+  }, []);
 
   return (
-    <div className="home"> Home
-    
-      {blogs.map(blog=>(
-      <BlogList key={blog.id} blog={blog} title="All Blogs!" />
+    <div className="home">
+      {blogs.map((blog) => (
+        <BlogList key={blog.id} blog={blog} title="All Blogs!" />
       ))}
       {/* {error && <div>{error}</div>}
       {isPending && <div>Loading...</div>}

@@ -1,32 +1,23 @@
 import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
 import useFetch from "../useFetch";
+import { collection, doc, getDoc, setDoc } from "@firebase/firestore";
+import { db } from "../fbase";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const BlogDetails = () => {
+  const [blog, setBlog] = useState({});
   const { id } = useParams();
-  const history = useHistory();
-  const {
-    data: blog,
-    isPending,
-    error,
-  } = useFetch("http://localhost:8000/blogs/" + id);
 
-  const onDelete = async () => {
-    try {
-      await axios.delete("http://localhost:8000/blogs/" + blog.id);
-    } catch (e) {
-      console.log(e);
-    }
-    history.push("/");
-  };
+  const docSnap = getDoc(doc(db, "blog-list", "qvj8S8cILHXiZbPemDQ2"));
+    console.log(docSnap.data());
 
   return (
     <div className="blog-details">
-      {isPending && <div>Loading...</div>}
-      {error && <div>{error} </div>}
-      {blog && (
-        <article>
-          <h2>{blog.title}</h2>
+      <article>
+        {/* <h2>{blog.title}</h2> */}
+        {/* <h2>{blog.title}</h2>
           <p>Posted by {blog.author}</p>
           <div>{blog.body}</div>
           <div className="buttons">
@@ -36,9 +27,8 @@ const BlogDetails = () => {
             <button className="list-btn" onClick={() => history.push("/")}>
               List
             </button>
-          </div>
-        </article>
-      )}
+          </div> */}
+      </article>
     </div>
   );
 };

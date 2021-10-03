@@ -19,20 +19,17 @@ function App() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        const currentUser = auth.currentUser
+        const currentUser = auth.currentUser;
         setUserInfo({
-            displayName: currentUser.displayName,
-            uid: currentUser.uid,
-          });
+          displayName: currentUser.displayName,
+          uid: currentUser.uid,
+        });
       } else {
         setUserInfo("");
       }
     });
   }, []);
-  // setUserInfo()
   const isLoggedIn = Boolean(userInfo);
-
-
   return (
     <Router>
       <div className="App">
@@ -43,7 +40,7 @@ function App() {
               <Home />
             </Route>
             {isLoggedIn ? (
-              <Route path="/create" >
+              <Route path="/create">
                 <Create userInfo={userInfo} />
               </Route>
             ) : (
@@ -51,8 +48,8 @@ function App() {
                 <Auth />
               </Route>
             )}
-            <Route path="/blogs/:id">
-              <BlogDetails />
+            <Route path="/:id">
+              <BlogDetails userInfo={userInfo} />
             </Route>
             <Route path="*">
               <NotFound />
